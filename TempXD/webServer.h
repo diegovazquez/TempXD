@@ -8,10 +8,22 @@ void handleRoot() {
   server.send(200, "text/plain", "Hola Humanoides!");
 }
 
+void handleStartStopRecord() {
+  // update Clock
+  time_t t = now();
+  if ( record == false) {
+    record = true;
+  } else {
+    record = false;
+  }
+  server.send(200, "application/json", "{ \"recording\" : " + String(record) + "}" );
+}
+
+
 void handleBasicData() {
   // update Clock
   time_t t = now();
-  server.send(200, "application/json", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + ", \"time\" : " + String(t) + ", \"recording\" : " + String(record) + "}" );
+  server.send(200, "application/json", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + ", \"time\" : " + String(t) + ", \"lastTempUpdate\" : " + String(lastTempUpdate) + ", \"recording\" : " + String(record) + "}" );
 }
 
 
@@ -65,6 +77,7 @@ void webServerStart() {
   server.on("/", handleRoot);
 
   server.on("/getData.json", handleBasicData);
+  server.on("/startStopRecord.json", handleStartStopRecord);
 
   /*server.on("/inline", [](){
     server.send(200, "text/plain", "this works as well");

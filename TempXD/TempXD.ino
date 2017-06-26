@@ -3,15 +3,23 @@ Beer Liquor/Mash/Boil Temperature Logger
 See exelent tutorial: https://tttapa.github.io/ESP8266/Chap01%20-%20ESP8266.html
 */
 
+/* vars */
+time_t lastTempUpdate = 0;                    // Last time to get temp 
+time_t lastLocalLoggerUpdate = 0;             // Last time to white temp in local logger
+time_t lastLocalLoggerLastRecordNumber = 0;   // Last time to white temp in local logger
+time_t lastThingspeakUpdate = 0;              // Last time to white temp in local logger
+boolean record = false;                        // Write in local logger
+
+
+/* Modules */
 #include "configuration.h"
 #include "tempSensor.h"
 #include "wifi.h"
 #include "SPIFFS.h"
+#include "ntp.h"
 #include "webServer.h"
 #include "display.h"
-#include "ntp.h"
 #include "thingspeak.h"
-
 
 
 void setup() {
@@ -43,13 +51,6 @@ void setup() {
   // Start & configure display                              
   if (DISPLAY_IC2_ENABLE == true) { displayStart(); }     
 }
-
-
-time_t lastTempUpdate = 0;                    // Last time to get temp 
-time_t lastLocalLoggerUpdate = 0;             // Last time to white temp in local logger
-time_t lastLocalLoggerLastRecordNumber = 0;   // Last time to white temp in local logger
-time_t lastThingspeakUpdate = 0;              // Last time to white temp in local logger
-boolean record = true;                        // Write in local logger
 
 void loop() {
   // update Clock
