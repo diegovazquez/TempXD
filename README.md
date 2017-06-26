@@ -23,6 +23,8 @@ El nombre del dispositivo IOT hace honor a 2 cosas: Al Monkey Island con su bebi
 * 4.7k Resistor
 * 1 swich
 
+![Planos](https://github.com/diegovazquez/TempXD/raw/develop/extras/sketch.png)
+
 # Funcionalidad
 
 ## Configuracion
