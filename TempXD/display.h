@@ -12,7 +12,8 @@ void displayStart() {
   // Should match the number provided to the constructor.
   lcd.begin(20,4);
   lcd.init();
-  lcd.backlight();  // Turn on the backlight.
+  //lcd.backlight(); // Turn on the backlight.
+  lcd.noBacklight(); // turn off backlight
 
   lcd.setCursor(0, 0);
   lcd.print("Liquor");

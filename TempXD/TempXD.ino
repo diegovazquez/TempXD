@@ -67,10 +67,12 @@ void loop() {
       lastTempUpdate = t;
   }
 
-  t = now();
-  // Record temp In file
+
+  
   if (record == true) {
+    // Record temp In file      
     if (lastLocalLoggerLastRecordNumber < LOCAL_LOGGER_MAX_RECORDS_X_FILE) {
+      t = now();
       if ( t > (lastLocalLoggerUpdate + LOCAL_LOGGER_RECORD_TEMP_EVERY_X_SECONDS )) {
           Serial.print("Write Local LOG...");
           File tempLog = SPIFFS.open("/localLogger/1.csv", "a"); // Write the time and the temperature to the csv file
@@ -99,17 +101,19 @@ void loop() {
     } else {
       Serial.println("File limit reached");
     }
-  }
-
-  t = now();
-  // Record on thingspeak
-  if (THINGSPEAK_ENABLE == true) {
-    if (record == true) {
+    // Record on thingspeak
+    if (THINGSPEAK_ENABLE == true) {
         if ( t > (lastThingspeakUpdate + THINGSPEAK_UPDATE_EVERY_X_SECONDS)) {
               thingspeakUpdate();
               lastThingspeakUpdate = t;
         }
     }
+    //
+    if (DISPLAY_IC2_ENABLE == true) { lcd.backlight(); // Turn on the backlight. }  
+      
+  } else {
+    lastLocalLoggerLastRecordNumber = 0;
+    if (DISPLAY_IC2_ENABLE == true) { lcd.noBacklight(); // Turn off the backlight. }  
   }
 
   // Webserver
