@@ -8,8 +8,10 @@ void handleRoot() {
   server.send(200, "text/plain", "Hola Humanoides!");
 }
 
-void handleTemps() {
-  server.send(200, "text/plain", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + "}" );
+void handleBasicData() {
+  // update Clock
+  time_t t = now();
+  server.send(200, "application/json", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + ", \"time\" : " + String(t) + ", \"recording\" : " + String(record) + "}" );
 }
 
 
@@ -62,7 +64,7 @@ void handleNotFound() { // if the requested file or page doesn't exist, return a
 void webServerStart() {
   server.on("/", handleRoot);
 
-  server.on("/getTemps", handleTemps);
+  server.on("/getData.json", handleBasicData);
 
   /*server.on("/inline", [](){
     server.send(200, "text/plain", "this works as well");
