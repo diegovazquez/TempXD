@@ -20,7 +20,11 @@ void displayStart() {
   lcd.setCursor(0, 1);      
   lcd.print("Mash");
   lcd.setCursor(0, 2);      
-  lcd.print("Boil");  
+  lcd.print("Boil");
+  lcd.setCursor(0, 3);
+  lcd.print("IP:");
+  lcd.setCursor(4, 3);
+  lcd.print(WiFi.localIP());
 }
 
 // Show Temps in display
