@@ -109,13 +109,13 @@ void loop() {
         }
     }
     //
-    if (DISPLAY_IC2_ENABLE == true) { lcd.backlight(); // Turn on the backlight. }  
+    if (DISPLAY_IC2_ENABLE == true) { 
+      lcd.backlight(); // Turn on the backlight.   
+    }
       
   } else {
+    // Record is disabled
     lastLocalLoggerLastRecordNumber = 0;
-    if (DISPLAY_IC2_ENABLE == true) { lcd.noBacklight(); // Turn off the backlight. }  
+    if (DISPLAY_IC2_ENABLE == true) { lcd.noBacklight(); };  // Turn off the backlight.  
   }
-
-  // Webserver
-  server.handleClient();
 }
