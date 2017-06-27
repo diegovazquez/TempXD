@@ -8,8 +8,8 @@ time_t lastTempUpdate = 0;                    // Last time to get temp
 time_t lastLocalLoggerUpdate = 0;             // Last time to white temp in local logger
 time_t lastLocalLoggerLastRecordNumber = 0;   // Last time to white temp in local logger
 time_t lastThingspeakUpdate = 0;              // Last time to white temp in local logger
-boolean record = false;                        // Write in local logger
-
+boolean record = false;                       // Write in local logger
+boolean recordWasEnabled = false;             // In the last loop record was enabled? 
 
 /* Modules */
 #include "configuration.h"
@@ -109,13 +109,19 @@ void loop() {
         }
     }
     //
-    if (DISPLAY_IC2_ENABLE == true) { 
-      lcd.backlight(); // Turn on the backlight.   
+    if ( recordWasEnabled != record) {
+      if (DISPLAY_IC2_ENABLE == true) { 
+        lcd.backlight(); // Turn on the backlight.   
+      }
     }
       
   } else {
     // Record is disabled
     lastLocalLoggerLastRecordNumber = 0;
-    if (DISPLAY_IC2_ENABLE == true) { lcd.noBacklight(); };  // Turn off the backlight.  
+    if ( recordWasEnabled != record) {
+      if (DISPLAY_IC2_ENABLE == true) { lcd.noBacklight(); };  // Turn off the backlight.  
+    }
   }
+  recordWasEnabled = record;
 }
+
