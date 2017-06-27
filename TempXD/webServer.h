@@ -5,7 +5,8 @@ ESP8266WebServer server(WEBSERVER_PORT);
 
 
 void handleRoot() {
-  server.send(200, "text/plain", "Hola Humanoides!");
+  server.sendHeader("Location", String("/index.html"), true);
+  server.send ( 302, "text/plain", "");
 }
 
 void handleStartStopRecord() {
