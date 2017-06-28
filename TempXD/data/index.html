@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>TempXD</title>
+	
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" type="image/png" href="favicon.png" />
+		
+		<link rel="stylesheet" href="static_bootstrap.min.css">
+
+		<style>
+		.canvasjs-chart-credit {
+			display: none;
+		}		
+		</style>
+
+
+	</head>
+	<body>
+
+		<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="#">TempDX - Temperature Logger for beer makers</a>
+			</div> <!-- /container -->  
+		</nav>	
+		<div class="jumbotron" style="padding-bottom: 2.5rem; margin-top: 1.5rem;">
+			<div class="container">
+				<div class="alert alert-info" role="alert" id="recordingFalse" style="display: none;">
+				  Termperature is not recorded, press <a href="javascript:startStopRecording();" class="alert-link">START</a> for recording.
+				</div> 
+				<div class="alert alert-danger" role="alert" id="recordingTrue" style="display: none;">
+				  Termperature is recording, press <a href="javascript:startStopRecording();" class="alert-link">STOP</a> for end recording.
+				</div>
+				<div class="row">
+				  <div class="col-md-4">
+					<div class="card text-center">
+					  <div class="card-header card-success text-center">					
+						<h3>Liquor</h3>
+					  </div>
+					  <div class="card-block">
+						<h2 class="card-title" id="liquorValue">0.00</h2>
+					  </div>
+					  <div class="card-footer text-muted">
+						Updated <span id="liquorTime">X</span> seconds ago...
+					  </div>
+					</div>
+				  </div>
+				  <div class="col-md-4">
+					<div class="card text-center">
+					  <div class="card-header card-warning text-center">					
+						<h3>Mash</h3>
+					  </div>
+					  <div class="card-block">
+						<h2 class="card-title" id="mashValue">0.00</h2>
+					  </div>
+					  <div class="card-footer text-muted">
+						Updated <span id="mashTime">x</span> seconds ago...
+					  </div>
+					</div>
+				  </div>
+				  <div class="col-md-4">
+					<div class="card text-center">
+					  <div class="card-header card-danger text-center">					
+						<h3>Boil</h3>
+					  </div>
+					  <div class="card-block">
+						<h2 class="card-title" id="boilValue">0.00</h2>
+					  </div>
+					  <div class="card-footer text-muted">
+						Updated <span id="boilTime">x</span> seconds ago...
+					  </div>
+					</div>
+				  </div>			  
+				</div>
+			</div> <!-- /container -->
+		</div> <!-- /Jumbotron -->
+		
+		<div class="container">
+
+		
+			<nav class="navbar bg-faded rounded navbar-toggleable-md">
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#containerNavbar" aria-controls="containerNavbar" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" href="#">Select </a>
+
+			<div class="collapse navbar-collapse" id="containerNavbar">
+			  <ul class="navbar-nav mr-auto">
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><b>Record</b></a>
+				  <div class="dropdown-menu" aria-labelledby="dropdown04">
+					<a class="dropdown-item" href="#">Record Numer 1 - 2017-6-23</a>
+					<a class="dropdown-item" href="#">Record Numer 2 - 2017-6-23</a>
+					<a class="dropdown-item" href="#">Record Numer 3 - 2017-6-23</a>
+				  </div>
+				</li>
+			  </ul>
+			  <button class="btn my-2 my-sm-0 btn-danger" type="submit">Delete Record</button>
+			  &nbsp;&nbsp;
+			  <button class="btn my-2 my-sm-0 btn-success" type="submit">Download as CSV</button>
+			</div>
+			</nav>
+			<br>
+			
+			<div id="chartContainer" style="width:100%; height:300px;"></div>
+	
+	
+		
+			<hr>
+			<footer>
+			  <div class="row">
+				<div class="col">
+					<div class="row"> 
+						<span class="col-sm-2">Storage</span>
+						<span class="col-sm-3" style="margin-top: 5px;">
+							<div class="progress">
+								<div class="progress" class="col" style="width: 100px">
+									<div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 10px" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"> 1/10 </div>
+								</div>
+							</div>
+						</span>
+					 </div>
+				</div>
+				<div class="col">
+				  <p class="text-right">MIT Licensed, Developed by Diego Vazquez</p>
+				</div>
+			  </div>			
+			</footer>
+		</div> <!-- /container -->
+		
+	   <!-- jQuery first, then Tether, then Bootstrap JS. -->
+	    <script src="static_jquery-3.2.1.min.js"></script>
+		<script src="static_tether.min.js"></script>
+		<script src="static_bootstrap.min.js"></script>
+		
+		<script src="static_canvasjs.min.js"></script>
+		<script src="static_jquery.canvasjs.min.js"></script>
+		
+		<script src="tempxd.js"></script>
+			
+		<script type="text/javascript">
+			window.onload = function() {
+				console.log("Starting");
+				getData();
+				setInterval(function(){ getData(); }, 5000);
+				setInterval(function(){ updateTime(); }, 1000);
+			}
+		</script>
+	
+	</body>
+</html>	
