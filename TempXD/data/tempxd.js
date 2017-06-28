@@ -5,7 +5,6 @@ var dataPoints2 = [];	// Boil
 
 
 // get Data times
-var time = 0;
 var lastTempUpdate = 0;
 	
 	
@@ -56,7 +55,6 @@ function getData() {
 				$( '#recordingFalse' ).show();
 			}
 			lastTempUpdate = data.lastTempUpdate;
-			time = data.time;
 	});
 }	
 	

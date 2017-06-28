@@ -16,8 +16,7 @@ void webServerStart() {
   });
 
   server.on("/getData.json", HTTP_GET, [](AsyncWebServerRequest *request){
-    time_t t = now();
-    request->send(200, "application/json", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + ", \"time\" : " + String(t) + ", \"lastTempUpdate\" : " + String(lastTempUpdate) + ", \"recording\" : " + String(record) + "}" );
+    request->send(200, "application/json", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + ", \"lastTempUpdate\" : " + String(lastTempUpdate) + ", \"recording\" : " + String(record) + "}" );
   });
 
   server.on("/startStopRecord.json", HTTP_GET, [](AsyncWebServerRequest *request){
