@@ -27,6 +27,6 @@ void startSPIFFS() { // Start the SPIFFS and list all contents
     Serial.printf("\n");
   }
   //SPIFFS.remove("/temp.csv");
-  SPIFFS.remove("/localLogger/1.csv");
+  //SPIFFS.remove("/localLogger/1.csv");
 }
 

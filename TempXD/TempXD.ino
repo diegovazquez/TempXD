@@ -9,7 +9,8 @@ time_t lastLocalLoggerUpdate = 0;             // Last time to white temp in loca
 time_t lastLocalLoggerLastRecordNumber = 0;   // Last time to white temp in local logger
 time_t lastThingspeakUpdate = 0;              // Last time to white temp in local logger
 boolean record = false;                       // Write in local logger
-boolean recordWasEnabled = false;             // In the last loop record was enabled? 
+boolean recordWasEnabled = false;             // In the last loop record was enabled?
+String  recordFileName;
 
 /* Modules */
 #include "configuration.h"
@@ -70,12 +71,21 @@ void loop() {
 
   
   if (record == true) {
-    // Record temp In file      
+    t = now();
+    
+    if ( recordWasEnabled == false ) {
+        recordFileName = "/req/" + String(year(t)) + "-" + String(month(t)) + "-" + String(day(t)) + "_" + String(hour(t)) + "-" + String(minute(t)) + "-" + String(second(t)) + ".csv";
+    }    
+    
+    // Check File Size      
     if (lastLocalLoggerLastRecordNumber < LOCAL_LOGGER_MAX_RECORDS_X_FILE) {
-      t = now();
+      // Record temp In file
       if ( t > (lastLocalLoggerUpdate + LOCAL_LOGGER_RECORD_TEMP_EVERY_X_SECONDS )) {
-          Serial.print("Write Local LOG...");
-          File tempLog = SPIFFS.open("/localLogger/1.csv", "a"); // Write the time and the temperature to the csv file
+          Serial.print( recordFileName + " Write Local LOG...");
+          File tempLog = SPIFFS.open(recordFileName, "a"); // Write the time and the temperature to the csv file
+          if (!tempLog) {
+            Serial.println("file open failed");
+          }
           tempLog.print(year(t));
           tempLog.print("-");
           tempLog.print(month(t));
@@ -100,7 +110,9 @@ void loop() {
       }
     } else {
       Serial.println("File limit reached");
+      record = false;
     }
+    
     // Record on thingspeak
     if (THINGSPEAK_ENABLE == true) {
         if ( t > (lastThingspeakUpdate + THINGSPEAK_UPDATE_EVERY_X_SECONDS)) {
