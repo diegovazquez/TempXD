@@ -33,6 +33,20 @@ void webServerStart() {
     request->send(200, "application/json", "{ \"recording\" : " + String(record) + "}" );
   });
 
+
+  server.on("/getRecords.json", HTTP_GET, [](AsyncWebServerRequest *request){
+      String respons = "[";
+      Dir dir = SPIFFS.openDir("/req/");
+      while (dir.next()) {                      // List the file system contents
+        String fileName = dir.fileName();
+        size_t fileSize = dir.fileSize();
+        respons = respons + "'" + fileName.c_str() + "',";
+        //Serial.printf("\tFS File: %s, size: %s\r\n", fileName.c_str(), formatBytes(fileSize).c_str());
+      }
+      respons[respons.length()-1] = ']';
+      request->send(200, "application/json", respons );
+  });
+
   // attach filesystem root at URL /fs
   server.serveStatic("/", SPIFFS, "/");
 
