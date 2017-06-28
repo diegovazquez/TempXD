@@ -11,14 +11,17 @@ void onRequest(AsyncWebServerRequest *request){
 
 
 void webServerStart() {
+  // Redirect to index
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->redirect("/index.html");
   });
 
+  // Status Data
   server.on("/getData.json", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(200, "application/json", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + ", \"lastTempUpdate\" : " + String(lastTempUpdate) + ", \"recording\" : " + String(record) + "}" );
   });
 
+  // Start Stop Recording
   server.on("/startStopRecord.json", HTTP_GET, [](AsyncWebServerRequest *request){
     // update Clock
     time_t t = now();
