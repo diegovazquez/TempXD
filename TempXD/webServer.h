@@ -40,8 +40,7 @@ void webServerStart() {
       while (dir.next()) {                      // List the file system contents
         String fileName = dir.fileName();
         size_t fileSize = dir.fileSize();
-        respons = respons + "'" + fileName.c_str() + "',";
-        //Serial.printf("\tFS File: %s, size: %s\r\n", fileName.c_str(), formatBytes(fileSize).c_str());
+        respons = respons + "\"" + fileName.c_str() + "\",";
       }
       respons[respons.length()-1] = ']';
       request->send(200, "application/json", respons );

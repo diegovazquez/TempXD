@@ -6,15 +6,38 @@ var dataPoints2 = [];	// Boil
 
 // get Data times
 var lastTempUpdate = 0;
-	
-	
-	
+var fileName;	
 	
 /*    ---------------   */
 
+function selectFile(file){
+	fileName = file;
+	graphCsv(file);
+}
+
+function updateFileList(){
+	console.log("data");
+	$.getJSON("getRecords.json?" + Math.random(), function(data) {
+		html = ""
+		var dataLength = data.length;
+		for (var i = 0; i < dataLength; i++) {
+			html = html + '<a class="dropdown-item" href="JavaScript:selectFile(\'' + data[i] + '\');">' + data[i] +'</a>';
+		}
+		$( '#recordDropdown' ).html( html );
+	});	
+}
 
 
+function recordDelete() {
+	file = fileName.substring(4);
+	$.get("recordDelete.json??name=" + file.substring(0,file.length - 4) +"&random=" + Math.random(), function(data) {
+		//location.reload();
+	});
+}
 
+function downloadRecord() {
+	window.open(fileName,'_blank');
+}
 
 function startStopRecording() {
 	$( '#recordingTrue' ).hide();
@@ -22,6 +45,7 @@ function startStopRecording() {
 	$.get("startStopRecord.json?" + Math.random(), function(data) {
 			console.log(data);
 	});
+	setTimeout(function(){ updateFileList(); }, 1000);
 }
 
 var lastRecordedTempUpdate = 1;
@@ -32,7 +56,6 @@ function updateTime() {
 		utime = utime + 1;
 	} else {
 		utime = 1;
-		console.log("updated");
 	}
 		
 	lastRecordedTempUpdate = lastTempUpdate;

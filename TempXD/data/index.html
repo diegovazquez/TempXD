@@ -90,16 +90,14 @@
 			  <ul class="navbar-nav mr-auto">
 				<li class="nav-item dropdown">
 				  <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><b>Record</b></a>
-				  <div class="dropdown-menu" aria-labelledby="dropdown04">
-					<a class="dropdown-item" href="#">Record Numer 1 - 2017-6-23</a>
-					<a class="dropdown-item" href="#">Record Numer 2 - 2017-6-23</a>
-					<a class="dropdown-item" href="#">Record Numer 3 - 2017-6-23</a>
+				  <div class="dropdown-menu" aria-labelledby="dropdown04" id="recordDropdown">
+					<a class="dropdown-item" href="#">None</a>
 				  </div>
 				</li>
 			  </ul>
-			  <button class="btn my-2 my-sm-0 btn-danger" type="submit">Delete Record</button>
+			  <button class="btn my-2 my-sm-0 btn-danger" type="submit"  id="recordDelete" onclick="recordDelete();">Delete Record</button>
 			  &nbsp;&nbsp;
-			  <button class="btn my-2 my-sm-0 btn-success" type="submit">Download as CSV</button>
+			  <button class="btn my-2 my-sm-0 btn-success" type="submit" id="recordDownload" onclick="downloadRecord();">Download as CSV</button>
 			</div>
 			</nav>
 			<br>
@@ -112,7 +110,7 @@
 			<footer>
 			  <div class="row">
 				<div class="col">
-					<div class="row"> 
+					<!--<div class="row"> 
 						<span class="col-sm-2">Storage</span>
 						<span class="col-sm-3" style="margin-top: 5px;">
 							<div class="progress">
@@ -121,7 +119,7 @@
 								</div>
 							</div>
 						</span>
-					 </div>
+					 </div>-->
 				</div>
 				<div class="col">
 				  <p class="text-right">MIT Licensed, Developed by Diego Vazquez</p>
@@ -143,7 +141,8 @@
 		<script type="text/javascript">
 			window.onload = function() {
 				console.log("Starting");
-				getData();
+				getData();				
+				setTimeout(function(){ updateFileList(); }, 500);
 				setInterval(function(){ getData(); }, 5000);
 				setInterval(function(){ updateTime(); }, 1000);
 			}
