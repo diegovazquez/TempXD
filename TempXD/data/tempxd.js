@@ -29,9 +29,9 @@ function updateFileList(){
 
 
 function recordDelete() {
-	file = fileName.substring(4);
+	file = fileName.substring(5);
 	$.get("recordDelete.json??name=" + file.substring(0,file.length - 4) +"&random=" + Math.random(), function(data) {
-		//location.reload();
+		location.reload();
 	});
 }
 

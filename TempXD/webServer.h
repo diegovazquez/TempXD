@@ -16,6 +16,20 @@ void webServerStart() {
     request->redirect("/index.html");
   });
 
+  // Delete file
+  server.on("/recordDelete.json", HTTP_GET, [](AsyncWebServerRequest *request){
+    String name = "nope";
+    int params = request->params();
+    for(int i=0;i<params;i++){
+        AsyncWebParameter* p = request->getParam(i);
+        if ( p->name().c_str() == "name" ) {
+          String name = p->value().c_str();
+        };
+    };
+    SPIFFS.remove("/req/" + name + ".json" );
+    request->send(200, "application/json", "{ \"delete\" : true }" );
+  });
+  
   // Status Data
   server.on("/getData.json", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(200, "application/json", "{ \"tempLiquor\": " + String(tempLiquor) + ", \"tempMash\": " + String(tempMash) + ", \"tempBoil\" : " + String(tempBoil) + ", \"lastTempUpdate\" : " + String(lastTempUpdate) + ", \"recording\" : " + String(record) + "}" );
