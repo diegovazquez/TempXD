@@ -19,14 +19,13 @@ void webServerStart() {
   // Delete file
   server.on("/recordDelete.json", HTTP_GET, [](AsyncWebServerRequest *request){
     String name = "nope";
-    int params = request->params();
-    for(int i=0;i<params;i++){
-        AsyncWebParameter* p = request->getParam(i);
-        if ( p->name().c_str() == "name" ) {
-          String name = p->value().c_str();
-        };
-    };
-    SPIFFS.remove("/req/" + name + ".json" );
+    if(request->hasParam("name"))
+    {
+      AsyncWebParameter* p = request->getParam("name");
+      name =  p->value().c_str();
+    }
+    SPIFFS.remove("/req/" + name + ".csv" );
+    Serial.println("Deleting /req/" + name + ".csv");
     request->send(200, "application/json", "{ \"delete\" : true }" );
   });
   

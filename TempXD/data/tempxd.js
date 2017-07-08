@@ -30,7 +30,7 @@ function updateFileList(){
 
 function recordDelete() {
 	file = fileName.substring(5);
-	$.get("recordDelete.json??name=" + file.substring(0,file.length - 4) +"&random=" + Math.random(), function(data) {
+	$.get("recordDelete.json?name=" + file.substring(0,file.length - 4) +"&random=" + Math.random(), function(data) {
 		location.reload();
 	});
 }
@@ -85,7 +85,7 @@ function getData() {
 /*    ---------------   */
 
 function getDataPointsFromCSV(csv) {
-	var dataPoints = csvLines = points = [];
+	var dataPoints = dataPoints1 = dataPoints2 = csvLines = points = [];
 	var yearmontday = [];
 	var hourminsec = [];
 	csvLines = csv.split(/[\r?\n|\r|\n]+/);         
