@@ -21,6 +21,22 @@ void tempSensorPrintAddress(DeviceAddress deviceAddress)
   }
 }
 
+String tempSensorGetAddress(DeviceAddress deviceAddress)
+{
+    static char return_me[18];
+    static char *hex = "0123456789ABCDEF";
+    uint8_t i, j;
+
+    for (i=0, j=0; i<8; i++) 
+    {
+         return_me[j++] = hex[deviceAddress[i] / 16];
+         return_me[j++] = hex[deviceAddress[i] & 15];
+    }
+    return_me[j] = '\0';
+
+    return String(return_me);
+}
+
 
 void tempSensorStart() {
   // Start up the library
@@ -90,15 +106,16 @@ void getTempFromSensors() {
       // Output the device ID
       if (SERIAL_TEMP_LOG_ENABLE == true) { 
         Serial.print("Temperature for device ");
-        Serial.print(i,DEC);     
+        Serial.print(tempSensorGetAddress(tempDeviceAddress));     
         Serial.print(": ");
         Serial.println(temp);
       }
-      if ( i == 0 ) { tempLiquor = temp ;}   
-      if ( i == 1 ) { tempMash = temp ;}   
-      if ( i == 2 ) { tempBoil = temp ;} 
+      if ( tempSensorGetAddress(tempDeviceAddress) == SENSOR_ID_LIQUOR ) { tempLiquor = temp ;}   
+      if ( tempSensorGetAddress(tempDeviceAddress) == SENSOR_ID_MASH ) { tempMash = temp ;}   
+      if ( tempSensorGetAddress(tempDeviceAddress) == SENSOR_ID_BOIL ) { tempBoil = temp ;} 
     }   
   }  
+  
 }
 
 
