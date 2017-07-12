@@ -1,7 +1,8 @@
 // Require webServer.h
 #include <ESP8266WiFi.h>          //ESP8266 Core WiFi Library (you most likely already have this in your sketch)
 #include <DNSServer.h>            //Local DNS Server used for redirecting all requests to the configuration portal
-#include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager WiFi Configuration Magic
+#define WIFI_MANAGER_USE_ASYNC_WEB_SERVER
+#include <WiFiManager.h>          //https://github.com/btomer/WiFiManager WiFi Configuration Magic
 
 void configModeCallback (WiFiManager *myWiFiManager) {
   Serial.println("Entered config mode");

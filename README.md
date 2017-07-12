@@ -9,10 +9,15 @@ El nombre del dispositivo IOT hace honor a 2 cosas: Al Monkey Island con su bebi
 
 ## Librerias
 
-* [WiFiManager](https://github.com/vitotai/WiFiManager)
+* [WiFiManager w/ESPAsyncWebServer support](https://github.com/btomer/WiFiManager)
 * [OneWire](https://github.com/PaulStoffregen/OneWire)
-* [TimeLib](https://github.com/PaulStoffregen/Time)
 * [LiquidCrystal_I2C](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library)
+* [ESPAsyncWebServer] (https://github.com/me-no-dev/ESPAsyncWebServer)
+* [ESPAsyncTCP] (https://github.com/me-no-dev/ESPAsyncTCP)
+* [Time] (https://github.com/PaulStoffregen/Time) Rename Time.h to _Time.h
+* [Dallas Temperature Control Library] (https://github.com/milesburton/Arduino-Temperature-Control-Library)
+
+Podes encontrarlas en los extras/libraries.zip
 
 # Hardware
 
@@ -21,7 +26,8 @@ El nombre del dispositivo IOT hace honor a 2 cosas: Al Monkey Island con su bebi
 * Serie I2c (para el display)
 * DS18B20 Sumergible (3 en total)
 * 4.7k Resistor
-* 1 swich
+
+![Planos](https://github.com/diegovazquez/TempXD/raw/develop/extras/sketch.png)
 
 # Funcionalidad
 
@@ -37,4 +43,7 @@ Se puede almacenar la informacion en Thingspeak
 
 El almacenamiento de datos locales se realiza en formato CSV.
 
+# Instalar
 
+* [Arduino IDE - Support for ESP8266] (https://github.com/esp8266/Arduino)
+* [Arduino ESP8266 filesystem uploader] (https://github.com/esp8266/arduino-esp8266fs-plugin)

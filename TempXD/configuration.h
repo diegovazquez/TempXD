@@ -1,8 +1,14 @@
 // WIFI
-#define WIFI_MODE                   "MANAGER"                // JOIN (configure in code) // MANAGER
+#define WIFI_MODE                   "JOIN"                // JOIN (configure in code) // MANAGER
 #define WIFI_AP_MANAGER             "MashLoggerConfig"    // AP Name For mode MANAGER
-#define WIFI_NAME                   "myhomewifi"          // AP Name For mode JOIN
-#define WIFI_PASS                   "myappass"            // AP Password For mode JOIN
+#define WIFI_NAME                   "WifiName"          // AP Name For mode JOIN
+#define WIFI_PASS                   "WifiPass"            // AP Password For mode JOIN
+
+
+// Sensor ID
+#define SENSOR_ID_LIQUOR            "28FFF47BA815046C"
+#define SENSOR_ID_MASH              "28FF0268A81501D9"
+#define SENSOR_ID_BOIL              "28FF2DE143160468"
 
 
 // Log to thingspeak
@@ -23,7 +29,7 @@
 #define NTP_SYNC_INTERVAL           600               // Sync every N seconds
 
 // Sensor Conf
-#define GET_TEMP_EVERY_X_SECONDS    3                 //
+#define GET_TEMP_EVERY_X_SECONDS    5                 //
 #define ONE_WIRE_BUS                2                 // DS18B20 on arduino pin2 corresponds to D4 on physical board of NodeMCU
 #define TEMPERATURE_PRECISION       12                // DS18B20 Temperature presition set global resolution to 9, 10, 11, or 12 bits
 
@@ -31,7 +37,7 @@
 #define SERIAL_TEMP_LOG_ENABLE      true              // Enable Show temperature in serial console
 
 // Display Conf
-#define DISPLAY_IC2_ENABLE          false             // Enable Display
+#define DISPLAY_IC2_ENABLE          true              // Enable Display
 #define DISPLAY_IC2_ADDRESS         0x3F              // Display Address
 
 // Webserver Conf
